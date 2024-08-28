@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['signIn'])) {
     session_start();
-    header("Location:login.php");
+    header("Location:index.php");
    }
 ?>
 

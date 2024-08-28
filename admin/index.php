@@ -40,12 +40,13 @@ include("templates/header.php");
         unset($_SESSION["delete"]);
         }
   ?>
+  
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th style="width:15%;"> Created At</th>
                 <th style="width:15%;">Title</th>
-                <th style="width:45%;">About</th>
+                <th style="width:45%;">Content</th>
                 <th style="width:25%;">Action</th>
             </tr>
         </thead>
@@ -60,7 +61,7 @@ include("templates/header.php");
             <tr>
             <td><?php echo $data["date"]?></td>
             <td><?php echo $data["title"]?></td>
-            <td><?php echo $data["summary"]?></td>
+            <td><?php echo $data["content"]?></td>
             <td>
                 <a class="btn btn-info" href="view.php?id=<?php echo $data["id"]?>">View</a>
                 <a class="btn btn-warning"  href="edit.php?id=<?php echo $data["id"]?>">Edit</a>

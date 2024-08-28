@@ -9,9 +9,6 @@ include("templates/header.php");
                     <input type="text" class="form-control" name="title" id="" placeholder="Enter Title:">
                 </div>
                 <div class="form-field mb-4">
-                    <textarea name="summary"  class="form-control" id="" cols="30" rows="10" placeholder="Enter Summary:"></textarea>
-                </div>
-                <div class="form-field mb-4">
                     <textarea name="content" class="form-control" id="" cols="30" rows="10" placeholder="Enter Post:"></textarea>
                 </div>
                 <input type="hidden" name="date" value="<?php echo date("Y/m/d"); ?>">
