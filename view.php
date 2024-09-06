@@ -12,7 +12,7 @@
         <h1><a href="index.php" class="text-light text-decoration-none">Blog Is Here</a></h1>
     </header>
     <div class="post-list ">
-        <div class="container" style="width: 1250px; height: 500px;">
+        <div class="container">
             <?php
                 $id = $_GET['id'];
                 if ($id) {
@@ -34,8 +34,8 @@
             ?>
          </div>
     </div>
-    <div class="footer bg-dark p-4 mt-4">
-        <a href="admin/index.php" class="btn btn-primary text-light">Admin Panel</a>
+    <div class="footer bg-dark p-3">
+        <a href="admin/index.php" class="btn btn-primary border border-white text-light">Admin Panel</a>
     </div>
 </body>
 </html>

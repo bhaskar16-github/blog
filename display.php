@@ -10,18 +10,19 @@
             if (isset($_GET['page-nr'])){
                 $id = $_GET['page-nr'];
             }else{
-                $id = 1 ;
+                $id=1;
             }
         ?>
+        <link rel="stylesheet" href="./styles.css">
     </head>
 
     <body id="<?php echo $id ?>">
-
+    <div class="container">
     <div class="content">
         <?php 
             while ($row=$data->fetch_assoc()){
         ?>
-         <div class="row mb-4 p-4 bg-subtle border border-subtle rounded-3 bg-secondary text-light">
+         <div class="row mb-4 p-4 bg-subtle border border-primary border-subtle rounded-3 bg-dark text-light">
                         <div class="col-sm-2">
                             <?php echo $row["date"]; ?>
                         </div>
@@ -32,13 +33,14 @@
                             <?php echo $row["content"]; ?>
                         </div>
                         <div class="col-sm-2">
-                            <a href="view.php?id=<?php echo $row['id']; ?>" class="btn btn-primary border border-light text-light">READ MORE</a>
+                            <a href="view.php?id=<?php echo $row['id']; ?>" class="btn btn-primary border text-light">READ MORE</a>
                         </div>
                     </div>
             <?php 
             }
         ?>
     </div>
+    
     <div class="page-info"> 
         <?php 
             if (!isset ($_GET['page-nr'])){
@@ -53,39 +55,39 @@
     <nav aria-label="...">
         <ul class="pagination justify-content-end">
         
-        <li class="page-item active border border-light">
+        <li class="page-item active d-flex border">
         <?php
             if(isset($_GET['page-nr'])&& $_GET['page-nr']>1){
         ?>
-            <a class="page-link" href="?php-nr=<?php echo $_GET['page-nr']-1 ?>">Previous</a>
+            <a class="page-link active" href="?page-nr=<?php echo $_GET['page-nr'] -1 ?>">Previous</a>
         <?php 
             }else{
         ?>
-            <a class="page-link">Previous</a>
+            <a class="page-link active">Previous</a>
 
         <?php
             }
         ?>
         </li>
         
-            <div class="page-numbers bg-white text-light m-1">
+            <div class="page-numbers d-flex border">
                 <?php 
                     for ($counter = 1; $counter <= $pages; $counter ++){
                 ?>
-                <a href="?page-nr= <?php echo $counter ?>"><?php echo $counter ?></a> 
+                <a class="page-link" href="?page-nr= <?php echo $counter ?>"><?php echo $counter ?></a> 
                 <?php   
                     }
                 ?>    
 
         </div>
 
-        <li class="page-item active border border-light">
+        <li class="page-item active d-flex border">
         <?php
         if(!isset($_GET['page-nr'])){
 
         ?>
 
-        <a class="page-link" href="?page-nr=2">Next</a>
+        <a class="page-link active" href="?page-nr=2">Next</a>
 
         <?php
 
@@ -95,7 +97,7 @@
 
         ?>
 
-        <a class="page-link">Next</a>
+        <a class="page-link active">Next</a>
 
 
         <?php
@@ -105,7 +107,7 @@
 
         ?>
 
-        <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>">Next</a>
+        <a class="page-link active" href="?page-nr=<?php echo $_GET['page-nr'] +1 ?>">Next</a>
 
         <?php
 
@@ -117,6 +119,7 @@
         </li>
         </ul>
     </nav>
+    </div>
 <script>
     let links = document.querySelectorAll('.page-numbers > a');
     let bodyId = parseInt(document.body.id) - 1;

@@ -21,68 +21,66 @@
     <div class="post-list mt-1">
         <form class="row justify-content-center" action="" method="GET">
             <div class="col-5">
-                <input type="text" name="search" require value="<?php if(isset($_GET['search'])) {echo htmlspecialchars($_GET['search']);} ?>" class="form-control border border-secondary" placeholder="Search Here"> 
+                <input type="text" name="search" required value="<?php if(isset($_GET['search'])) {echo htmlspecialchars($_GET['search']);} ?>" class="form-control border border-secondary" placeholder="Search Here"> 
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3"><i class="fa-solid fa-magnifying-glass"></i></button>
-                <button type="submit" class="btn btn-secondary mb-3"  onclick="clearSearch()"><i class="fa-solid fa-x"></i></button>
+                <button type="submit" class="btn btn-primary border border-dark mb-3"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button type="button" class="btn btn-secondary border border-dark mb-3"  onclick="clearSearch()"><i class="fa-solid fa-x"></i></button>
             </div> 
-            <script>
-                
-             function clearSearch() {
-                document.querySelector('input[name="search"]').value = '';
-                window.location.href = window.location.pathname + "?clear=1";
-                }
-            </script>
         </form>
 
-            <?php
+        <?php
+            $con = mysqli_connect("localhost","root", "", "cms");
 
-                $con = mysqli_connect("localhost","root", "", "cms");
-
-                if(isset($_GET['search']))
-
-                {
-
+            if(isset($_GET['search'])) {
                 $filtervalues = $_GET['search'];
 
-                $query = "SELECT * FROM posts WHERE CONCAT(title, content) LIKE '%$filtervalues%' ";
+                if($filtervalues != "") {
+                    $query = "SELECT * FROM posts WHERE CONCAT(title, content) LIKE '%$filtervalues%'";
+                    $query_run = mysqli_query($con, $query);
 
-                $query_run = mysqli_query($con, $query);
-
-                if(mysqli_num_rows($query_run) > 0)
-                {
-                    foreach ($query_run as $row){
-            ?>
-                        <div class="row  p-3 bg-secondary text-light border rounded-3">
-                            <div class="col-sm-2">
-                                <?php echo htmlspecialchars($row["date"]); ?>
-                            </div>
-                            <div class="col-sm-3">
-                                <h2><?php echo htmlspecialchars($row["title"]); ?></h2>
-                            </div>
-                            <div class="col-sm-5">
-                                <?php echo htmlspecialchars($row["content"]); ?>
-                            </div>
-                            <div class="col-sm-2">
-                                <a href="view.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-primary border border-dark text-dark">READ MORE</a>
+                    if(mysqli_num_rows($query_run) > 0) {
+                        foreach ($query_run as $row) {
+        ?>
+                        <div class="container"style="height: 480px;">
+                            <div class="row p-3 bg-dark text-light border rounded-3">
+                                <div class="col-sm-2">
+                                    <?php echo htmlspecialchars($row["date"]); ?>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h2><?php echo htmlspecialchars($row["title"]); ?></h2>
+                                </div>
+                                <div class="col-sm-5">
+                                    <?php echo htmlspecialchars($row["content"]); ?>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href="view.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-primary border border-light text-light">READ MORE</a>
+                                </div>
                             </div>
                         </div>
-                        <?php
+        <?php
+                        }
+                    } else {
+                        echo "<p>No record found..!</p>";
                     }
                 } else {
-                ?>
-                    <p>No record found..!</p>
-                <?php
-                     }
-                 }
-                ?>
-        <div class="container" style="width: 1250px; height: 475px;">   
-            <?php include "display.php"; ?>
-        </div>
+                    include "display.php";
+                }
+            } else {
+                include "display.php";
+            }
+        ?>
     </div>
-    <div class="footer bg-dark p-3 mt-4">
-        <a href="admin/logout.php" class="text-light btn btn-primary">Admin Panel</a>
-    </div>
+    
+    <footer class="bg-dark p-3">
+        <a href="admin/login.php" class="text-light btn btn-primary border">Admin Panel</a>
+    </footer>
+
+    <script>     
+        function clearSearch() {
+            document.querySelector('input[name="search"]').value = '';
+            window.location.href = window.location.pathname + "?search=";
+        }
+    </script>
 </body>
 </html>
