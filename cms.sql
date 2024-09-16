@@ -13,3 +13,21 @@ ALTER TABLE `posts`
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
+
+
+-- DataBase Schema
+Tables : users & posts
+
+users: 
+        id : PRIMARY
+        firstName : varchar(50)
+        lastname : varchar(50)
+        email : varchar(50)
+        password : varchar(30)
+
+posts :
+        id : PRIMARY
+        date : varchar(255)
+        title : varchar(255)
+        content : MEDIUMTEXT
+--
