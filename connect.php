@@ -1,11 +1,15 @@
 <?php
-$dbHost = "localhost";
-$dbUser = "root";
-$dbPass = "";
-$dbName = "cms";
 
-$conn = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
-if (!$conn) {
-    echo ("Something went wrong. Database is not connected;");
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "cms"; 
+
+$Conn = new mysqli($host, $user, $pass, $db);
+
+if ($Conn->connect_error) {
+    die("Failed to connect to Posts DB: " . $Conn->connect_error);
 }
 ?>
+
+

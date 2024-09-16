@@ -1,7 +1,7 @@
 <?php
+session_start();
 include("templates/header.php");
 ?>
-
 
 <div class="posts-list w-100 p-5">
 <?php
@@ -39,8 +39,45 @@ include("templates/header.php");
         <?php
         unset($_SESSION["delete"]);
         }
+        session_start();
+
+// Get the current user ID from session
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+// Get the user's role
+
+
+// Function to generate tags based on the user's role
+function generateTags($role) {
+    $tags = [];
+
+    switch ($role) {
+        case 'admin':
+            $tags = ['view', 'edit', 'delete'];
+            break;
+
+        case 'editor':
+            $tags = ['view', 'delete'];
+            break;
+
+        case 'user':
+            $tags = ['view'];
+            break;
+
+        default:
+            echo "Invalid role.";
+            break;
+    }
+
+    return $tags;
+}
+
+// Get the appropriate tags for the current user
+$tags = generateTags($role);
+
+?>
   ?>
-  
+        
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -51,11 +88,10 @@ include("templates/header.php");
             </tr>
         </thead>
         <tbody>
-            
             <?php
             include('../connect.php');
             $sqlSelect = "SELECT * FROM posts";
-            $result = mysqli_query($conn,$sqlSelect);
+            $result = mysqli_query($Conn,$sqlSelect);
             while($data = mysqli_fetch_array($result)){
             ?>
             <tr>
@@ -63,9 +99,17 @@ include("templates/header.php");
             <td><?php echo $data["title"]?></td>
             <td><?php echo $data["content"]?></td>
             <td>
-                <a class="btn btn-info" href="view.php?id=<?php echo $data["id"]?>">View</a>
-                <a class="btn btn-warning"  href="edit.php?id=<?php echo $data["id"]?>">Edit</a>
-                <a class="btn btn-danger" href="delete.php?id=<?php echo $data["id"]?>">Delete</a>
+                 <?php if (in_array('view', $tags)): ?>
+                    <button class="btn btn-info" href="view.php?id=<?php echo $data['id']; ?>">View</button>
+                <?php endif; ?>
+                
+                <?php if (in_array('edit', $tags)): ?>
+                    <button class="btn btn-warning" href="edit.php?id=<?php echo $data['id']; ?>">Edit</button>
+                <?php endif; ?>
+
+                <?php if (in_array('delete', $tags)): ?>
+                    <button class="btn btn-danger" href="delete.php?id=<?php echo $data['id']; ?>">Delete</button>
+                <?php endif; ?>
             </td>
             </tr>
             <?php
