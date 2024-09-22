@@ -5,10 +5,10 @@ $user = "root";
 $pass = "";
 $db = "cms"; 
 
-$Conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db);
 
-if ($Conn->connect_error) {
-    die("Failed to connect to Posts DB: " . $Conn->connect_error);
+if ($conn->connect_error) {
+    die("Failed to connect to Posts DB: " . $conn->connect_error);
 }
 ?>
 

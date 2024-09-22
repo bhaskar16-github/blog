@@ -3,53 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const signUpForm = document.getElementById("signUpForm");
     const signInForm = document.getElementById("signInForm");
 
-    // Sign-up form validation
-    signUpForm.addEventListener("submit", (event) => {
-        const fName = document.getElementById("fName");
-        const lName = document.getElementById("lName");
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
-
-        let isValid = true;
-
-        // Validate first name
-        if (fName.value.trim() === "") {
-            displayError("fNameError", "First Name is required.");
-            isValid = false;
-        } else {
-            clearError("fNameError");
-        }
-
-        // Validate last name
-        if (lName.value.trim() === "") {
-            displayError("lNameError", "Last Name is required.");
-            isValid = false;
-        } else {
-            clearError("lNameError");
-        }
-
-        // Validate email format
-        if (!isValidEmail(email.value)) {
-            displayError("emailError", "Please enter a valid email address.");
-            isValid = false;
-        } else {
-            clearError("emailError");
-        }
-
-        // Validate password length
-        if (password.value.length < 6) {
-            displayError("passwordError", "Password must be at least 6 characters.");
-            isValid = false;
-        } else {
-            clearError("passwordError");
-        }
-
-        // Prevent form submission if validation fails
-        if (!isValid) {
-            event.preventDefault();
-        }
-    });
-
     // Sign-in form validation
     signInForm.addEventListener("submit", (event) => {
         const email = document.getElementById("signInEmail");
